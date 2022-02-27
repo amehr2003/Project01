@@ -28,7 +28,6 @@ public class LinkedBag<T> implements BagInterface<T>
         // (firstNode is null if chain is empty)
         firstNode = newNode;       // New node is at beginning of chain
         numberOfEntries++;
-
         return true;
     } // end add
 
@@ -64,45 +63,51 @@ public class LinkedBag<T> implements BagInterface<T>
     @Override
     public BagInterface<T> Union(BagInterface<T> bag) {
 
-        BagInterface<T> newBag = new LinkedBag<T>();
-
-        // getting contents of this bag
-
-        Object[] bagAcontents = toArray();
-
-        // getting contents of other bag
-
-        Object[] bagBcontents = anotherBag.toArray();
-
-        // adding both contents to new bag
-
-        for (Object ob : bagAcontents) {
-
-            newBag.add((T) ob);
-
+        BagInterface < T > result = new LinkedBag < >();
+        T[] others = otherBag.toArray();
+        for (T elem : others) {
+            result.add(elem);
         }
-
-        for (Object ob : bagBcontents) {
-
-            newBag.add((T) ob);
-
+        T[] mine = this.toArray();
+        for (T elem : mine) {
+            result.add(elem);
         }
-
-        return newBag;
+        return result;
 
     }
 
     @java.lang.Override
     public BagInterface<T> Intersection(BagInterface<T> bag) {
         BagInterface<T> = new LinkedBag<>();
-        T[] List = this.Node;
         T[] other = bag.toBag();
+        T[] List = this.Node;
         return null;
     }
 
     @java.lang.Override
     public BagInterface<T> Difference(BagInterface<T> bag) {
-        return null;
+        BagInterface<T> newBag = new LinkedBag<T>();
+
+        // getting contents of this bag
+
+        Object[] bagAcontents = toArray();
+
+        for (Object ob : bagAcontents) {
+
+            T item = (T) ob;
+
+            // adding item to new bag if it is NOT present in other bag
+
+            if (!otherBag.contains(item)) {
+
+                newBag.add(item);
+
+            }
+
+        }
+
+        return newBag;
+
     }
 
     /** Gets the number of entries currently in this bag.
