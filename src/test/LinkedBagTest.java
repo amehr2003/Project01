@@ -4,17 +4,26 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * this class was created to use the maven dependency and
+ * create j-unit test files to run code for errors.
+ * The Bag uses an implementation of Integer in this class.
+ */
 class LinkedBagTest {
 
+    /**
+     * testUnion tests the method that should combine two
+     */
     @Test
-    void union() {
+    void testUnion() {
+
     }
 
     @Test
-    void intersection() {
+    void testIntersection() {
     }
 
     @Test
-    void difference() {
+    void testDifference() {
     }
 }
