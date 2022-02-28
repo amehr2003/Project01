@@ -1,3 +1,5 @@
+package src;
+
 /**
  A class of bags whose entries are stored in a chain of linked nodes.
  The bag is never full.
@@ -179,6 +181,7 @@ public class LinkedBag<T> implements BagInterface<T>
     } // end remove
 
     private Node getReferenceTo(T anEntry) {
+        return null;
     }
 
 

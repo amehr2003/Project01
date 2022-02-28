@@ -1,3 +1,5 @@
+package src;
+
 public interface BagInterface<T>
 {
     public BagInterface<T> Union(BagInterface<T> bag);
