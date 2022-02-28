@@ -24,4 +24,5 @@ public interface BagInterface<T>
     public int getFrequencyOf(T anEntry);
 
     public T[] toArray();
+
 }
