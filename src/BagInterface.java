@@ -25,4 +25,5 @@ public interface BagInterface<T>
 
     public T[] toArray();
 
+    boolean contains(T item);
 }

@@ -22,10 +22,10 @@ public class LinkedBag<T> implements BagInterface<T>
      @return  True. */
     public boolean add(T newEntry) // OutOfMemoryError possible
     {
-        // Add to beginning of chain:
+        //Adds to beginning
         Node newNode = new Node(newEntry);
-        newNode.next = firstNode;  // Make new node reference rest of chain
-        // (firstNode is null if chain is empty)
+        newNode.next = firstNode;  // Make new node reference for the rest of chain
+        // (if chain is empty, firstNode is null)
         firstNode = newNode;       // New node is at beginning of chain
         numberOfEntries++;
         return true;
@@ -64,7 +64,7 @@ public class LinkedBag<T> implements BagInterface<T>
     public BagInterface<T> Union(BagInterface<T> bag) {
 
         BagInterface < T > result = new LinkedBag < >();
-        T[] others = otherBag.toArray();
+        T[] others = bag.toArray();
         for (T elem : others) {
             result.add(elem);
         }
@@ -76,12 +76,21 @@ public class LinkedBag<T> implements BagInterface<T>
 
     }
 
-    @java.lang.Override
+    @Override
     public BagInterface<T> Intersection(BagInterface<T> bag) {
-        BagInterface<T> = new LinkedBag<>();
-        T[] other = bag.toBag();
-        T[] List = this.Node;
-        return null;
+        BagInterface<T> result = new LinkedBag<>();
+        BagInterface < T > finalResult = new LinkedBag < >();
+        T[] mine = this.toArray();
+        for (T elem : mine) {
+            result.add(elem);
+        }
+        T[] others = bag.toArray();
+        for (T elem : others) {
+            if(result.contains(elem)){
+                finalResult.add(elem);
+            }
+        }
+        return finalResult;
     }
 
     @java.lang.Override
@@ -98,7 +107,7 @@ public class LinkedBag<T> implements BagInterface<T>
 
             // adding item to new bag if it is NOT present in other bag
 
-            if (!otherBag.contains(item)) {
+            if (!bag.contains(item)) {
 
                 newBag.add(item);
 
@@ -124,7 +133,8 @@ public class LinkedBag<T> implements BagInterface<T>
      was successful, or null. */
     public T remove()
     {
-        return null; // STUB
+        T result = null;
+
         if (firstNode != null)
 
         {
@@ -138,6 +148,7 @@ public class LinkedBag<T> implements BagInterface<T>
         } // end if
 
         return result;
+
     } // end remove
 
     /** Removes one occurrence of a given entry from this bag.
@@ -145,16 +156,15 @@ public class LinkedBag<T> implements BagInterface<T>
      @return  True if the removal was successful, or false otherwise. */
     public boolean remove(T anEntry)
     {
-        return false; // STUB
+        boolean result = false;
+
         Node nodeN = getReferenceTo(anEntry);
 
         if (nodeN != null)
 
         {
 
-            nodeN.data = firstNode.data; // Replace located entry with entry in
-
-            // first node
+            nodeN.data = firstNode.data; // Replace located entry with entry in first node
 
             firstNode = firstNode.next; // Remove first node
 
@@ -165,7 +175,12 @@ public class LinkedBag<T> implements BagInterface<T>
         } // end if
 
         return result;
+
     } // end remove
+
+    private Node getReferenceTo(T anEntry) {
+    }
+
 
     /** Removes all entries from this bag. */
     public void clear()
