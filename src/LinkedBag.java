@@ -15,7 +15,7 @@ public class LinkedBag<T> implements BagInterface<T>
     {
         firstNode = null;
         numberOfEntries = 0;
-    } // end default constructor
+    }
 
     /** Adds a new entry to this bag.
      @param newEntry  The object to be added as a new entry.
@@ -24,20 +24,20 @@ public class LinkedBag<T> implements BagInterface<T>
     {
         //Adds to beginning
         Node newNode = new Node(newEntry);
-        newNode.next = firstNode;  // Make new node reference for the rest of chain
-        // (if chain is empty, firstNode is null)
-        firstNode = newNode;       // New node is at beginning of chain
+        newNode.next = firstNode;  // Makes new node reference
+        // if chain is empty, firstNode is null
+        firstNode = newNode;       // New node will be at the start of the chain
         numberOfEntries++;
         return true;
-    } // end add
+    }
 
     /** Retrieves all entries that are in this bag.
      @return  A newly allocated array of all the entries in this bag. */
     public T[] toArray()
     {
-        // The cast is safe because the new array contains null entries.
+        //ignore all unchecked warnings since new array has only null entries
         @SuppressWarnings("unchecked")
-        T[] result = (T[])new Object[numberOfEntries]; // Unchecked cast
+        T[] result = (T[])new Object[numberOfEntries];
 
         int index = 0;
         Node currentNode = firstNode;
@@ -46,7 +46,7 @@ public class LinkedBag<T> implements BagInterface<T>
             result[index] = currentNode.data;
             index++;
             currentNode = currentNode.next;
-        } // end while
+        }
 
         return result;
         // Note: The body of this method could consist of one return statement,
@@ -58,7 +58,7 @@ public class LinkedBag<T> implements BagInterface<T>
     public boolean isEmpty()
     {
         return numberOfEntries == 0;
-    } // end isEmpty
+    }
 
     @Override
     public BagInterface<T> Union(BagInterface<T> bag) {
@@ -124,7 +124,7 @@ public class LinkedBag<T> implements BagInterface<T>
     public int getCurrentSize()
     {
         return numberOfEntries;
-    } // end getCurrentSize
+    }
 
 // STUBS:
 
@@ -145,11 +145,11 @@ public class LinkedBag<T> implements BagInterface<T>
 
             numberOfEntries--;
 
-        } // end if
+        }
 
         return result;
 
-    } // end remove
+    }
 
     /** Removes one occurrence of a given entry from this bag.
      @param anEntry  The entry to be removed.
@@ -172,13 +172,33 @@ public class LinkedBag<T> implements BagInterface<T>
 
             result = true;
 
-        } // end if
+        }
 
         return result;
 
-    } // end remove
+    }
 
     private Node getReferenceTo(T anEntry) {
+        boolean found = false;
+
+        Node currentNode = firstNode;
+
+        while (!found && (currentNode != null))
+
+        {
+
+            if (anEntry.equals(currentNode.data))
+
+                found = true;
+
+            else
+
+                currentNode = currentNode.next;
+
+        }
+
+        return currentNode;
+
     }
 
 
@@ -199,27 +219,71 @@ public class LinkedBag<T> implements BagInterface<T>
      @return  The number of times anEntry appears in the bag. */
     public int getFrequencyOf(T anEntry)
     {
-        return 0; // STUB
-    } // end getFrequencyOf
+        int frequency = 0;
+
+        int counter = 0;
+
+        Node currentNode = firstNode;
+
+        while ((counter < numberOfEntries) && (currentNode != null))
+
+        {
+
+            if (anEntry.equals(currentNode.data))
+
+            {
+
+                frequency++;
+
+            }
+
+            counter++;
+
+            currentNode = currentNode.next;
+
+        }
+
+        return frequency;
+    }
+
+
 
     /** Tests whether this bag contains a given entry.
      @param anEntry  The entry to locate.
      @return  True if the bag contains anEntry, or false otherwise. */
     public boolean contains(T anEntry)
     {
-        return false; // STUB
+        boolean found = false;
 
-    } // end contains
+        Node currentNode = firstNode;
+
+        while (!found && (currentNode != null))
+
+        {
+
+            if (anEntry.equals(currentNode.data))
+
+                found = true;
+
+            else
+
+                currentNode = currentNode.next;
+
+        } // end while
+
+        return found;
+
+    }
 
     private class Node
     {
-        private T    data; // Entry in bag
+        private T data; // Entry in bag
         private Node next; // Link to next node
 
         private Node(T dataPortion)
         {
             this(dataPortion, null);
-        } // end constructor
+        }
 
         private Node(T dataPortion, Node nextNode)
         {
