@@ -253,46 +253,53 @@ public class LinkedBag<T> implements BagInterface<T> {
 
     @Override
     public BagInterface<T> Intersection(BagInterface<T> bag) {
+
         BagInterface<T> result = new LinkedBag<>();
-        BagInterface<T> finalResult = new LinkedBag<>();
-        T[] bag2 = this.toArray();
-        for (int i = 0; i < bag2.length; i++) {
-            result.add(bag2[i]);
-        }
-        T[] bag1 = this.toArray();
-        for (int i = 0; i < bag1.length; i++) {
-            finalResult.add(bag1[i]);
-        }
-        return finalResult;
 
-    }
+            int counter = 0;
 
-    
-    @java.lang.Override
-    public BagInterface<T> Difference(BagInterface<T> bag) {
-        BagInterface<T> newBag = new LinkedBag<T>();
+            Node currentNode = firstNode;
 
-        // getting contents of this bag
+            while ((counter < numberOfEntries) && (currentNode != null)) {
 
-        // getting contents of this bag
+                if (bag.contains(currentNode.data)) {
 
-        Object[] bag1 = toArray();
+                    result.add(currentNode.data);
 
-        for (Object diff : bag1) {
+                }
 
-            T item = (T) diff;
+                counter++;
 
-            // adding item to new bag if it is NOT present in other bag
-
-            if (!newBag.contains(item)) {
-
-                newBag.add(item);
+                currentNode = currentNode.next;
 
             }
 
+            return result;
+
+    }
+
+
+    @java.lang.Override
+    public BagInterface<T> Difference(BagInterface<T> bag2) {
+        BagInterface<T> diffResult = new LinkedBag<>();
+
+        int diffcounter = 0;
+
+        Node diffCurrentNode = firstNode;
+
+        while ((diffcounter < numberOfEntries) && (diffCurrentNode != null)) {
+
+            if (!(bag2.contains(diffCurrentNode.data))) {
+
+                diffResult.add(diffCurrentNode.data);
+            }
+
+            diffcounter++;
+
+            diffCurrentNode = diffCurrentNode.next;
         }
 
-        return newBag;
+        return diffResult;
     }
 }
 

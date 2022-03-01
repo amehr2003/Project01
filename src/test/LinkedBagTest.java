@@ -67,7 +67,8 @@ class LinkedBagTest<Object> {
 
         DifferenceLinkedBag1.add(5);
         DifferenceLinkedBag1.add(6);
-        DifferenceLinkedBag2.add(7);
+        DifferenceLinkedBag1.add(7);
+        DifferenceLinkedBag2.add(5);
         DifferenceLinkedBag2.add(6);
 
         //Act
@@ -75,7 +76,7 @@ class LinkedBagTest<Object> {
 
         // Assert
         assertTrue(linkedDiff.contains(7));
-        assertTrue(linkedDiff.contains(5));
+        assertFalse(linkedDiff.contains(5));
         assertFalse(linkedDiff.contains(6));
     }
 }
