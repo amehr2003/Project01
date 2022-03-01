@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>BagInterface.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #629755; font-weight: bold; font-style: italic;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BagInterface.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">src</span><span class="s0">;</span>
+
+<span class="s0">public interface </span><span class="s1">BagInterface&lt;T&gt;</span>
+<span class="s1">{</span>
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">The union of two collections consists of their contents combined into a new collection.</span>
+     <span class="s2">*/</span>
+    <span class="s1">BagInterface&lt;T&gt; Union(BagInterface&lt;T&gt; bag)</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">The intersection of two collections is a new collection of the entries that occur in both collections.</span>
+     <span class="s2">*/</span>
+    <span class="s1">BagInterface&lt;T&gt; Intersection(BagInterface&lt;T&gt; bag)</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">The difference of two collections is a new collection of the entries that would be</span>
+     <span class="s2">* left in one collection after removing those that also occur in the second.</span>
+     <span class="s2">*/</span>
+    <span class="s1">BagInterface&lt;T&gt; Difference(BagInterface&lt;T&gt; bag)</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">the integer number of entries currently in bag</span>
+     <span class="s2">*/</span>
+    <span class="s0">int </span><span class="s1">getCurrentSize()</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">boolean value if bag is empty or not</span>
+     <span class="s2">*/</span>
+    <span class="s0">boolean </span><span class="s1">isEmpty()</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">either removed entry if successful or null</span>
+     <span class="s2">*/</span>
+    <span class="s0">boolean </span><span class="s1">add(T newEntry)</span><span class="s0">;</span>
+
+    <span class="s1">T remove()</span><span class="s0">;</span>
+
+    <span class="s0">boolean </span><span class="s1">remove(T anEntry)</span><span class="s0">;</span>
+
+    <span class="s0">void </span><span class="s1">clear()</span><span class="s0">;</span>
+
+    <span class="s0">int </span><span class="s1">getFrequencyOf(T anEntry)</span><span class="s0">;</span>
+
+    <span class="s1">T[] toArray()</span><span class="s0">;</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s3">@return </span><span class="s2">boolean if a bag contains an item</span>
+     <span class="s2">*/</span>
+    <span class="s0">boolean </span><span class="s1">contains(T item)</span><span class="s0">;</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

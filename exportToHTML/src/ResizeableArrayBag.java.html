@@ -1,0 +1,226 @@
+<html>
+<head>
+<title>ResizeableArrayBag.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #808080;}
+.s4 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ResizeableArrayBag.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">src</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">ResizeableArrayBag&lt;T&gt; </span><span class="s0">implements </span><span class="s1">BagInterface&lt;T&gt; {</span>
+    <span class="s0">private </span><span class="s1">T[] bag</span><span class="s0">;</span>
+    <span class="s0">private int </span><span class="s1">numberOfEntries</span><span class="s0">;</span>
+    <span class="s0">private boolean </span><span class="s1">integrityOK = </span><span class="s0">false;</span>
+    <span class="s0">private static final int </span><span class="s1">DEFAULT_CAPACITY = </span><span class="s2">25</span><span class="s0">; </span><span class="s3">//initialized capacity of bag</span>
+    <span class="s0">private static final int </span><span class="s1">MAX_CAPACITY = </span><span class="s2">1000000</span><span class="s0">;</span>
+    <span class="s3">//creating an empty bag whose initial capacity is 25</span>
+    <span class="s0">public </span><span class="s1">ResizeableArrayBag() {</span>
+        <span class="s0">this</span><span class="s1">(DEFAULT_CAPACITY)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public </span><span class="s1">ResizeableArrayBag(</span><span class="s0">int </span><span class="s1">initialCapacity) {</span>
+
+        <span class="s0">if </span><span class="s1">(initialCapacity &lt;= MAX_CAPACITY) {</span>
+            <span class="s1">@SuppressWarnings(</span><span class="s4">&quot;unchecked&quot;</span><span class="s1">)</span>
+            <span class="s1">T[] tempBag = (T[]) </span><span class="s0">new </span><span class="s1">Object[initialCapacity]</span><span class="s0">; </span><span class="s3">//unchecked cast</span>
+            <span class="s1">bag = tempBag</span><span class="s0">;</span>
+            <span class="s1">numberOfEntries = </span><span class="s2">0</span><span class="s0">; </span><span class="s3">//comment</span>
+            <span class="s1">integrityOK = </span><span class="s0">true;</span>
+        <span class="s1">} </span><span class="s3">// end if</span>
+        <span class="s0">else </span><span class="s1">{</span>
+            <span class="s0">throw new </span><span class="s1">IllegalStateException(</span><span class="s4">&quot;Attempt to make bag too big&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s3">//end constructor</span>
+
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">ResizeableArrayBag(T[] contents) {</span>
+        <span class="s1">checkCapacity(contents.length)</span><span class="s0">;</span>
+        <span class="s1">bag = Arrays.copyOf(contents</span><span class="s0">, </span><span class="s1">contents.length)</span><span class="s0">;</span>
+        <span class="s1">numberOfEntries = contents.length</span><span class="s0">;</span>
+        <span class="s1">integrityOK = </span><span class="s0">true;</span>
+    <span class="s1">}</span>
+    <span class="s0">private void </span><span class="s1">checkCapacity(</span><span class="s0">int </span><span class="s1">capacity) {</span>
+        <span class="s0">if </span><span class="s1">(capacity &gt; MAX_CAPACITY)</span>
+            <span class="s0">throw new </span><span class="s1">IllegalStateException(</span><span class="s4">&quot;Attempt to create a bag whose &quot; </span><span class="s1">+</span>
+                    <span class="s4">&quot;capacity exceeds allowed &quot; </span><span class="s1">+</span>
+                    <span class="s4">&quot;maximum of &quot; </span><span class="s1">+ MAX_CAPACITY)</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">// end checkCapacity</span>
+
+    <span class="s0">private void </span><span class="s1">doubleCapacity() {</span>
+        <span class="s0">int </span><span class="s1">newLength = </span><span class="s2">2 </span><span class="s1">* bag.length</span><span class="s0">;</span>
+        <span class="s1">checkCapacity(newLength)</span><span class="s0">;</span>
+        <span class="s1">bag = Arrays.copyOf(bag</span><span class="s0">, </span><span class="s1">newLength)</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end doubleCapacity</span>
+
+    <span class="s0">public boolean </span><span class="s1">add(T newEntry) {</span>
+        <span class="s1">checkInitialization()</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">result = </span><span class="s0">true;</span>
+        <span class="s0">if </span><span class="s1">(isArrayFull()) {</span>
+            <span class="s1">doubleCapacity()</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s3">//end if</span>
+        <span class="s1">bag[numberOfEntries] = newEntry</span><span class="s0">;</span>
+        <span class="s1">numberOfEntries++</span><span class="s0">;</span>
+
+        <span class="s0">return true;</span>
+    <span class="s1">} </span><span class="s3">//end add</span>
+
+    <span class="s0">public </span><span class="s1">T[] toArray()</span>
+    <span class="s1">{</span>
+        <span class="s3">// The cast is safe because the new array contains null entries.</span>
+        <span class="s1">@SuppressWarnings(</span><span class="s4">&quot;unchecked&quot;</span><span class="s1">)</span>
+        <span class="s1">T[] result = (T[])</span><span class="s0">new </span><span class="s1">Object[numberOfEntries]</span><span class="s0">; </span><span class="s3">// Unchecked cast</span>
+        <span class="s0">for </span><span class="s1">( </span><span class="s0">int </span><span class="s1">index = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">index &lt; numberOfEntries</span><span class="s0">; </span><span class="s1">index++ ) {</span>
+            <span class="s1">result[index] = bag[index]</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s3">//end for</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">// end toArray</span>
+
+    <span class="s0">public boolean </span><span class="s1">isEmpty() {</span>
+        <span class="s0">return </span><span class="s1">numberOfEntries == </span><span class="s2">0</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end isEmpty</span>
+
+    <span class="s0">public </span><span class="s1">BagInterface&lt;T&gt; Union(BagInterface&lt;T&gt; bag) {</span>
+
+        <span class="s1">BagInterface&lt;T&gt; I = </span><span class="s0">new </span><span class="s1">ResizeableArrayBag&lt;T&gt;()</span><span class="s0">;</span>
+        <span class="s1">T[] array = </span><span class="s0">this</span><span class="s1">.toArray()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(T elem : array) {</span>
+            <span class="s1">I.add(elem)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">T[] other = bag.toArray()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(T elem : other) {</span>
+            <span class="s1">I.add(elem)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">I</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">BagInterface&lt;T&gt; Intersection(BagInterface&lt;T&gt; bag) {</span>
+
+        <span class="s1">BagInterface&lt;T&gt; I = </span><span class="s0">new </span><span class="s1">ResizeableArrayBag&lt;T&gt;()</span><span class="s0">;</span>
+
+        <span class="s1">T[] array = </span><span class="s0">this</span><span class="s1">.toArray()</span><span class="s0">;</span>
+        <span class="s1">T[] other = bag.toArray()</span><span class="s0">;</span>
+
+        <span class="s0">boolean </span><span class="s1">status[] = </span><span class="s0">new boolean</span><span class="s1">[other.length]</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">( </span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; array.length-</span><span class="s2">1</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">( </span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; other.length-</span><span class="s2">1</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s0">if </span><span class="s1">(other[i].equals(array[i]) &amp;&amp; (!status[j])) {</span>
+                    <span class="s1">I.add(array[i])</span><span class="s0">;</span>
+                    <span class="s1">status[j] = </span><span class="s0">true;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">I</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end Intersection</span>
+
+    <span class="s0">public </span><span class="s1">BagInterface&lt;T&gt; Difference(BagInterface&lt;T&gt; bag) {</span>
+
+        <span class="s1">BagInterface&lt;T&gt; I = </span><span class="s0">new </span><span class="s1">ResizeableArrayBag&lt;T&gt;()</span><span class="s0">;</span>
+
+        <span class="s1">T[] array = </span><span class="s0">this</span><span class="s1">.toArray()</span><span class="s0">;</span>
+        <span class="s1">T[] other = bag.toArray()</span><span class="s0">; </span><span class="s3">//two new bags</span>
+
+        <span class="s0">if </span><span class="s1">(isEmpty() &amp;&amp; bag.isEmpty()) {</span>
+            <span class="s1">System.out.println(</span><span class="s4">&quot;Both are empty.&quot;</span><span class="s1">)</span><span class="s0">; </span><span class="s3">//checks if bags are empty</span>
+            <span class="s0">return </span><span class="s1">I</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">int </span><span class="s1">index = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">; </span><span class="s1">index &lt; </span><span class="s0">this</span><span class="s1">.getCurrentSize()</span><span class="s0">; </span><span class="s1">index++) {</span>
+            <span class="s1">I.add(array[index])</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">( index = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">index &lt; bag.getCurrentSize()</span><span class="s0">; </span><span class="s1">index++) {</span>
+            <span class="s0">if </span><span class="s1">(bag.contains(other[index])) {</span>
+                <span class="s1">I.remove(other[index])</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+
+        <span class="s0">return </span><span class="s1">I</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public int </span><span class="s1">getCurrentSize() {</span>
+        <span class="s0">return </span><span class="s1">numberOfEntries</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end getCurrentSize</span>
+
+    <span class="s0">public int </span><span class="s1">getFrequencyOf(T anEntry) {</span>
+
+        <span class="s0">int </span><span class="s1">counter = </span><span class="s2">0</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">index = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">index &lt; numberOfEntries</span><span class="s0">; </span><span class="s1">index++) {</span>
+            <span class="s0">if </span><span class="s1">(anEntry.equals(bag[index])) {</span>
+                <span class="s1">counter++</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s3">//end if</span>
+        <span class="s1">} </span><span class="s3">//end for</span>
+        <span class="s0">return </span><span class="s1">counter</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end getFrequencyOf</span>
+
+    <span class="s0">public int </span><span class="s1">getIndexOf(T anEntry) {</span>
+        <span class="s0">int </span><span class="s1">where = -</span><span class="s2">1</span><span class="s0">;</span>
+        <span class="s0">boolean </span><span class="s1">found = </span><span class="s0">false;</span>
+        <span class="s0">int </span><span class="s1">index = </span><span class="s2">0</span><span class="s0">;</span>
+        <span class="s0">while </span><span class="s1">(!found &amp;&amp; (index &lt; numberOfEntries)) {</span>
+            <span class="s0">if </span><span class="s1">(anEntry.equals(bag[index])) {</span>
+                <span class="s1">found = </span><span class="s0">true;</span>
+                <span class="s1">where = index</span><span class="s0">;</span>
+            <span class="s1">} </span><span class="s3">//end if</span>
+            <span class="s1">index++</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s3">//end while</span>
+        <span class="s0">return </span><span class="s1">where</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public </span><span class="s1">T remove() {</span>
+
+        <span class="s1">checkInitialization()</span><span class="s0">;</span>
+        <span class="s1">T result = removeEntry(numberOfEntries - </span><span class="s2">1</span><span class="s1">)</span><span class="s0">; </span><span class="s3">//removes one occurrence of a given entry in a bag</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+
+    <span class="s1">} </span><span class="s3">// end remove</span>
+
+    <span class="s0">public boolean </span><span class="s1">remove(T anEntry) {</span>
+
+        <span class="s1">checkInitialization()</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">index = getIndexOf(anEntry)</span><span class="s0">;</span>
+        <span class="s1">T result = removeEntry(index)</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">anEntry.equals(result)</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">// end remove</span>
+    <span class="s0">private </span><span class="s1">T removeEntry(</span><span class="s0">int </span><span class="s1">givenIndex) {</span>
+        <span class="s1">T result = </span><span class="s0">null;</span>
+        <span class="s0">if </span><span class="s1">(!isEmpty() &amp;&amp; (givenIndex &gt;= </span><span class="s2">0</span><span class="s1">)) {</span>
+            <span class="s1">result = bag[givenIndex]</span><span class="s0">; </span><span class="s3">//Entry to remove</span>
+            <span class="s0">int </span><span class="s1">lastIndex = numberOfEntries - </span><span class="s2">1</span><span class="s0">;</span>
+            <span class="s1">bag[givenIndex] = bag[lastIndex]</span><span class="s0">; </span><span class="s3">//replace entry to remove with</span>
+            <span class="s1">bag[lastIndex] = </span><span class="s0">null; </span><span class="s3">//removes reference to last array</span>
+            <span class="s1">numberOfEntries--</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s3">//end if</span>
+        <span class="s0">return </span><span class="s1">result</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end remove(T entry)</span>
+
+    <span class="s0">public void </span><span class="s1">clear() {</span>
+        <span class="s0">while </span><span class="s1">(!isEmpty())</span>
+            <span class="s1">remove()</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s3">//end clear</span>
+    <span class="s0">private void </span><span class="s1">checkInitialization() {</span>
+        <span class="s0">if </span><span class="s1">(!integrityOK) {</span>
+            <span class="s0">throw new </span><span class="s1">SecurityException(</span><span class="s4">&quot;Uninitialized object used to call an arrayBag method&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}  </span><span class="s3">//end checkInitialization</span>
+    <span class="s0">private boolean </span><span class="s1">isArrayFull() {</span>
+        <span class="s0">return </span><span class="s1">numberOfEntries &gt;= bag.length</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s0">public boolean </span><span class="s1">contains(T anEntry) {</span>
+        <span class="s1">checkInitialization()</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">getIndexOf(anEntry) &gt; -</span><span class="s2">1</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span></pre>
+</body>
+</html>

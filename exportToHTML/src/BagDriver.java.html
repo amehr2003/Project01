@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>BagDriver.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #629755; font-style: italic;}
+.s3 { color: #6897bb;}
+.s4 { color: #6a8759;}
+.s5 { color: #629755; font-weight: bold; font-style: italic;}
+.s6 { color: #808080;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+BagDriver.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">src</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">BagDriver {</span>
+    <span class="s0">public static void </span><span class="s1">main(String[] args)</span>
+    <span class="s1">{</span>
+        <span class="s2">/**</span>
+         <span class="s2">* implementation example for resizeableArrayBag</span>
+         <span class="s2">* implements methods union, difference, and intersection</span>
+        <span class="s2">*/</span>
+
+        <span class="s1">ResizeableArrayBag&lt;Integer&gt; mainArrayBag1 = </span><span class="s0">new </span><span class="s1">ResizeableArrayBag&lt;&gt;(</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">mainArrayBag1.add(</span><span class="s3">6</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">mainArrayBag1.add(</span><span class="s3">7</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">mainArrayBag1.add(</span><span class="s3">7</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">ResizeableArrayBag&lt;Integer&gt; mainArrayBag2 = </span><span class="s0">new </span><span class="s1">ResizeableArrayBag&lt;&gt;(</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">mainArrayBag2.add(</span><span class="s3">8</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">mainArrayBag2.add(</span><span class="s3">7</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">BagInterface&lt;Integer&gt; togetherMain = mainArrayBag1.Union(mainArrayBag2)</span><span class="s0">;</span>
+        <span class="s1">BagInterface&lt;Integer&gt; commonMain = mainArrayBag1.Intersection(mainArrayBag2)</span><span class="s0">;</span>
+        <span class="s1">BagInterface&lt;Integer&gt; diffMain = mainArrayBag1.Difference(mainArrayBag2)</span><span class="s0">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;After the union method for ResizeableArrayBag &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">displayBag(togetherMain)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;After the intersection method for ResizeableArrayBag &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">displayBag(commonMain)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;After the difference method for ResizeableArrayBag &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">displayBag(diffMain)</span><span class="s0">;</span>
+
+        <span class="s2">/**</span>
+         <span class="s2">* implementation example for linkedBag</span>
+         <span class="s2">* implements methods union, difference, and intersection</span>
+        <span class="s2">*/</span>
+
+        <span class="s1">LinkedBag&lt;Integer&gt; testLinkedBag1 = </span><span class="s0">new </span><span class="s1">LinkedBag&lt;Integer&gt;()</span><span class="s0">;</span>
+        <span class="s1">LinkedBag&lt;Integer&gt; testLinkedBag2 = </span><span class="s0">new </span><span class="s1">LinkedBag&lt;Integer&gt;()</span><span class="s0">;</span>
+        <span class="s1">testLinkedBag1.add(</span><span class="s3">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">testLinkedBag1.add(</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">testLinkedBag2.add(</span><span class="s3">2</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">testLinkedBag2.add(</span><span class="s3">4</span><span class="s1">)</span><span class="s0">;</span>
+
+        <span class="s1">BagInterface&lt;Integer&gt; testLinkedTogether = testLinkedBag1.Union(testLinkedBag2)</span><span class="s0">;</span>
+        <span class="s1">BagInterface&lt;Integer&gt; testLinkedCommon = testLinkedBag1.Intersection(testLinkedBag2)</span><span class="s0">;</span>
+        <span class="s1">BagInterface&lt;Integer&gt; testLinkedDiff = testLinkedBag1.Difference(testLinkedBag2)</span><span class="s0">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s4">&quot;After the union method for LinkedBag &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">displayBag(testLinkedTogether)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;After the intersection method for LinkedBag &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">displayBag(testLinkedCommon)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;After the difference method for LinkedBag &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">displayBag(testLinkedDiff)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s2">/**</span>
+     <span class="s2">* </span><span class="s5">@param </span><span class="s2">aBag</span>
+     <span class="s2">* </span><span class="s5">@return  </span><span class="s2">a list of items in the bag.</span>
+     <span class="s2">*/</span>
+    <span class="s0">private static void </span><span class="s1">displayBag(BagInterface&lt;Integer&gt; aBag) {</span>
+        <span class="s1">System.out.println(</span><span class="s4">&quot;The bag contains...&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">Object[] bagArray = aBag.toArray()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; bagArray.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">System.out.print(bagArray[i] + </span><span class="s4">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">} </span><span class="s6">//end for</span>
+        <span class="s1">System.out.println()</span><span class="s0">;</span>
+    <span class="s1">} </span><span class="s6">// end displayBag method</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
