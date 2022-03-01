@@ -1,7 +1,6 @@
 package src.test;
 
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Node;
 import src.BagInterface;
 import src.LinkedBag;
 
@@ -22,63 +21,62 @@ class LinkedBagTest<Object> {
     @Test
     void testUnion() {
 
-        // Arrange
-        Node<Object> headNode = new Node(3, null);
-        LinkedBag<Object> intLinkedBag = new LinkedBag<Object>(headNode);
-        intLinkedBag.add(4);
+        //Arrange
 
-        Node<Object> anotherHeadNode = new Node(5, null);
-        LinkedBag<Object> intLinkedBag2 = new LinkedBag<Object>(anotherHeadNode);
-        intLinkedBag2.add(6);
+        LinkedBag<Integer> UnionLinkedBag1 = new LinkedBag<Integer>();
+        LinkedBag<Integer> UnionLinkedBag2 = new LinkedBag<Integer>();
+        UnionLinkedBag1.add(1);
+        UnionLinkedBag1.add(2);
+        UnionLinkedBag2.add(3);
+        UnionLinkedBag2.add(4);
 
-        // Act
-        BagInterface<Object> everything = intLinkedBag.Union(intLinkedBag2);
+        //Act
+        BagInterface<Integer> together = UnionLinkedBag1.Union(UnionLinkedBag2);
 
         // Assert
-        assertTrue(everything.contains(3));
-        assertTrue(everything.contains(4));
-        assertTrue(everything.contains(5));
-        assertTrue(everything.contains(6));
+        assertTrue(together.contains(1));
+        assertFalse(together.contains(2));
+        assertFalse(together.contains(3));
+        assertFalse(together.contains(4));
     }
 
     @Test
     void testIntersection() {
         // Arrange
-        Node<Object> headNode = new Node(4, null);
-        LinkedBag<Object> intLinkedBag = new LinkedBag<Object>(headNode);
-        intLinkedBag.add(3);
+        LinkedBag<Integer> IntersectionLinkedBag1 = new LinkedBag<Integer>();
+        LinkedBag<Integer> IntersectionLinkedBag2 = new LinkedBag<Integer>();
 
-        Node<Object> anotherHeadNode = new Node(5, null);
-        LinkedBag<Object> intLinkedBag2 = new LinkedBag<Object>(anotherHeadNode);
-        intLinkedBag2.add(3);
+        IntersectionLinkedBag1.add(1);
+        IntersectionLinkedBag1.add(2);
+        IntersectionLinkedBag2.add(2);
+        IntersectionLinkedBag2.add(4);
 
-        // Act
-        BagInterface<Object> everything = intLinkedBag.Intersection(intLinkedBag2);
+        //Act
+        BagInterface<Integer> together = IntersectionLinkedBag1.Union(IntersectionLinkedBag2);
 
         // Assert
-        assertTrue(everything.contains(3));
-        assertFalse(everything.contains(4));
-        assertFalse(everything.contains(5));
+        assertTrue(together.contains(2));
+        assertFalse(together.contains(1));
+        assertFalse(together.contains(4));
     }
 
     @Test
     void testDifference() {
         // Arrange
-        Node<Object> headNode = new Node(4, null);
-        LinkedBag<Object> intLinkedBag = new LinkedBag<Object>(headNode);
-        intLinkedBag.add(3);
-        intLinkedBag.add(5);
+        LinkedBag<Integer> DifferenceLinkedBag1 = new LinkedBag<Integer>();
+        LinkedBag<Integer> DifferenceLinkedBag2 = new LinkedBag<Integer>();
 
-        Node<Object> anotherHeadNode = new Node(5, null);
-        LinkedBag<Object> intLinkedBag2 = new LinkedBag<Object>(anotherHeadNode);
-        intLinkedBag2.add(3);
+        DifferenceLinkedBag1.add(1);
+        DifferenceLinkedBag1.add(2);
+        DifferenceLinkedBag2.add(2);
+        DifferenceLinkedBag2.add(4);
 
-        // Act
-        BagInterface<Object> leftover = intLinkedBag.Difference(intLinkedBag2);
+        //Act
+        BagInterface<Integer> together = DifferenceLinkedBag1.Union(DifferenceLinkedBag2);
 
         // Assert
-        assertTrue(leftover.contains(4));
-        assertFalse(leftover.contains(3));
-        assertFalse(leftover.contains(5));
+        assertTrue(together.contains(4));
+        assertTrue(together.contains(1));
+        assertFalse(together.contains(2));
     }
 }

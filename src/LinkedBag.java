@@ -10,7 +10,7 @@ package src;
  */
 public class LinkedBag<T> implements BagInterface<T>
 {
-    private Node firstNode;       // Reference to first node
+    public Node firstNode;       // Reference to first node
     private int numberOfEntries;
 
     public LinkedBag()
