@@ -6,6 +6,7 @@ import src.ResizeableArrayBag;
 import src.BagInterface;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 //import static org.junit.jupiter.api.AssertTrue.assertTrue;
 
@@ -46,6 +47,8 @@ class ResizeableArrayBagTest {
 
         //Assert
         assertTrue(common.contains(6));
+        assertFalse(common.contains(9));
+        assertFalse(common.contains(7));
     }
 
 
@@ -55,16 +58,18 @@ class ResizeableArrayBagTest {
         ResizeableArrayBag<Integer> DifferenceArrayBag1 = new ResizeableArrayBag<>(2);
         DifferenceArrayBag1.add(6);
         DifferenceArrayBag1.add(7);
+        DifferenceArrayBag1.add(8);
         ResizeableArrayBag<Integer> DifferenceArrayBag2 = new ResizeableArrayBag<>(2);
         DifferenceArrayBag2.add(6);
-        DifferenceArrayBag2.add(9);
+        DifferenceArrayBag2.add(8);
 
         //Act
         BagInterface<Integer> diff = DifferenceArrayBag1.Difference(DifferenceArrayBag2);
 
         //Assert
         assertTrue(diff.contains(7));
-        assertTrue(diff.contains(9));
+        assertFalse(diff.contains(8));
+        assertFalse(diff.contains(6));
     }
 
 }

@@ -114,16 +114,22 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
         BagInterface<T> I = new ResizeableArrayBag<T>();
 
         T[] array = this.toArray();
-        T[] other = bag.toArray();
+        T[] other = bag.toArray(); //two new bags
 
-        boolean status[] = new boolean[other.length];
-
-        for (int i = 0; i < array.length; i++) {
-            if (this.contains(array[i])) {
-                I.remove(array[i]);
-            }
-
+        if (isEmpty() && bag.isEmpty()) {
+            System.out.println("Both are empty."); //checks if bags are empty
+            return I;
         }
+        int index = 0;
+        for (; index < this.getCurrentSize(); index++) {
+            I.add(array[index]);
+        }
+        for ( index = 0; index < bag.getCurrentSize(); index++) {
+            if (bag.contains(other[index])) {
+                I.remove(other[index]);
+            }
+        }
+
         return I;
     }
 
