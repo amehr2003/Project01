@@ -18,7 +18,7 @@ class ResizeableArrayBagTest {
         ArrayBag2.add(9);
 
         //Act
-        BagInterface<Integer> together = ArrayBag1.union(ArrayBag2);
+        BagInterface<Integer> together = ArrayBag1.Union(ArrayBag2);
 
         //Assert
         assertTrue(together.contains(9));

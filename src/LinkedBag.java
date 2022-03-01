@@ -232,5 +232,3 @@ public class LinkedBag<T> implements BagInterface<T>
     } // end Node
 } // end LinkedBag1
 
-
-

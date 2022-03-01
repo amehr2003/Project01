@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * create j-unit test files to run code for errors.
  * The Bag uses an implementation of Integer in this class.
  */
-class LinkedBagTest {
+class LinkedBagTest<Object> {
 
     /**
      * testUnion tests the method that should combine two
@@ -30,7 +30,7 @@ class LinkedBagTest {
         intLinkedBag2.add(6);
 
         // Act
-        BagInterface<Object> everything = intLinkedBag.union(intLinkedBag2);
+        BagInterface<Object> everything = intLinkedBag.Union(intLinkedBag2);
 
         // Assert
         assertTrue(everything.contains(3));
@@ -51,7 +51,7 @@ class LinkedBagTest {
         intLinkedBag2.add(3);
 
         // Act
-        BagInterface<Object> everything = intLinkedBag.intersection(intLinkedBag2);
+        BagInterface<Object> everything = intLinkedBag.Intersection(intLinkedBag2);
 
         // Assert
         assertTrue(everything.contains(3));
@@ -72,7 +72,7 @@ class LinkedBagTest {
         intLinkedBag2.add(3);
 
         // Act
-        BagInterface<Object> leftover = intLinkedBag.difference(intLinkedBag2);
+        BagInterface<Object> leftover = intLinkedBag.Difference(intLinkedBag2);
 
         // Assert
         assertTrue(leftover.contains(4));
