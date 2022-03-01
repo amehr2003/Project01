@@ -22,7 +22,6 @@ class LinkedBagTest<Object> {
     void testUnion() {
 
         //Arrange
-
         LinkedBag<Integer> UnionLinkedBag1 = new LinkedBag<Integer>();
         LinkedBag<Integer> UnionLinkedBag2 = new LinkedBag<Integer>();
         UnionLinkedBag1.add(1);
@@ -31,13 +30,13 @@ class LinkedBagTest<Object> {
         UnionLinkedBag2.add(4);
 
         //Act
-        BagInterface<Integer> together = UnionLinkedBag1.Union(UnionLinkedBag2);
+        BagInterface<Integer> linkedTogether = UnionLinkedBag1.Union(UnionLinkedBag2);
 
         // Assert
-        assertTrue(together.contains(1));
-        assertFalse(together.contains(2));
-        assertFalse(together.contains(3));
-        assertFalse(together.contains(4));
+        assertTrue(linkedTogether.contains(1));
+        assertTrue(linkedTogether.contains(2));
+        assertTrue(linkedTogether.contains(3));
+        assertTrue(linkedTogether.contains(4));
     }
 
     @Test
@@ -52,12 +51,12 @@ class LinkedBagTest<Object> {
         IntersectionLinkedBag2.add(4);
 
         //Act
-        BagInterface<Integer> together = IntersectionLinkedBag1.Union(IntersectionLinkedBag2);
+        BagInterface<Integer> linkedCommon = IntersectionLinkedBag1.Intersection(IntersectionLinkedBag2);
 
         // Assert
-        assertTrue(together.contains(2));
-        assertFalse(together.contains(1));
-        assertFalse(together.contains(4));
+        assertTrue(linkedCommon.contains(2));
+        assertFalse(linkedCommon.contains(1));
+        assertFalse(linkedCommon.contains(4));
     }
 
     @Test
@@ -66,17 +65,17 @@ class LinkedBagTest<Object> {
         LinkedBag<Integer> DifferenceLinkedBag1 = new LinkedBag<Integer>();
         LinkedBag<Integer> DifferenceLinkedBag2 = new LinkedBag<Integer>();
 
-        DifferenceLinkedBag1.add(1);
-        DifferenceLinkedBag1.add(2);
-        DifferenceLinkedBag2.add(2);
-        DifferenceLinkedBag2.add(4);
+        DifferenceLinkedBag1.add(5);
+        DifferenceLinkedBag1.add(6);
+        DifferenceLinkedBag2.add(7);
+        DifferenceLinkedBag2.add(6);
 
         //Act
-        BagInterface<Integer> together = DifferenceLinkedBag1.Union(DifferenceLinkedBag2);
+        BagInterface<Integer> linkedDiff = DifferenceLinkedBag1.Difference(DifferenceLinkedBag2);
 
         // Assert
-        assertTrue(together.contains(4));
-        assertTrue(together.contains(1));
-        assertFalse(together.contains(2));
+        assertTrue(linkedDiff.contains(7));
+        assertTrue(linkedDiff.contains(5));
+        assertFalse(linkedDiff.contains(6));
     }
 }

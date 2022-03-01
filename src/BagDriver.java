@@ -1,10 +1,5 @@
 package src;
 
-
-import org.w3c.dom.Node;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class BagDriver {
     public static void main(String[] args)
     {
@@ -13,50 +8,59 @@ public class BagDriver {
          * implements methods union, difference, and intersection
         */
 
-        ResizeableArrayBag<Integer> testUnionArrayBag1 = new ResizeableArrayBag<>(2);
-        testUnionArrayBag1.add(6);
-        testUnionArrayBag1.add(7);
-        ResizeableArrayBag<Integer> testUnionArrayBag2 = new ResizeableArrayBag<>(2);
-        testUnionArrayBag2.add(8);
-        testUnionArrayBag2.add(9);
+        ResizeableArrayBag<Integer> mainArrayBag1 = new ResizeableArrayBag<>(2);
+        mainArrayBag1.add(6);
+        mainArrayBag1.add(7);
+        mainArrayBag1.add(7);
+        ResizeableArrayBag<Integer> mainArrayBag2 = new ResizeableArrayBag<>(2);
+        mainArrayBag2.add(8);
+        mainArrayBag2.add(7);
 
-        BagInterface<Integer> togethermain = testUnionArrayBag1.Union(testUnionArrayBag2);
+        BagInterface<Integer> togetherMain = mainArrayBag1.Union(mainArrayBag2);
+        BagInterface<Integer> commonMain = mainArrayBag1.Intersection(mainArrayBag2);
+        BagInterface<Integer> diffMain = mainArrayBag1.Difference(mainArrayBag2);
 
-        System.out.println(togethermain);
-
-        /**
-         * showcasing intersection method for ResizeableArrayBag
-         */
-        ResizeableArrayBag<Integer> testIntersectionArrayBag1 = new ResizeableArrayBag<>(2);
-        testIntersectionArrayBag1.add(6);
-        testIntersectionArrayBag1.add(7);
-        ResizeableArrayBag<Integer> testIntersectionArrayBag2 = new ResizeableArrayBag<>(2);
-        testIntersectionArrayBag2.add(6);
-        testIntersectionArrayBag2.add(9);
-
-        BagInterface<Integer> testcommon = testIntersectionArrayBag1.Intersection(testIntersectionArrayBag2);
-
-        System.out.println(togethermain);
-
+        System.out.println("After the union method for ResizeableArrayBag ");
+        displayBag(togetherMain);
+        System.out.println("After the intersection method for ResizeableArrayBag ");
+        displayBag(commonMain);
+        System.out.println("After the difference method for ResizeableArrayBag ");
+        displayBag(diffMain);
 
         /**
          * implementation example for linkedBag
          * implements methods union, difference, and intersection
         */
-/*
-        Node<Object> headNode = new Node(3, null);
-        LinkedBag<Object> intLinkedBag = new LinkedBag<Object>(headNode);
-        intLinkedBag.add(4);
 
-        Node<Object> anotherHeadNode = new Node(5, null);
-        LinkedBag<Object> intLinkedBag2 = new LinkedBag<Object>(anotherHeadNode);
-        intLinkedBag2.add(6);
+        LinkedBag<Integer> testLinkedBag1 = new LinkedBag<Integer>();
+        LinkedBag<Integer> testLinkedBag2 = new LinkedBag<Integer>();
+        testLinkedBag1.add(1);
+        testLinkedBag1.add(2);
+        testLinkedBag2.add(2);
+        testLinkedBag2.add(4);
 
-        BagInterface<Integer> union2 = intLinkedBag.Union(intLinkedBag2);
-        BagInterface<Integer> difference2 = intLinkedBag.Difference(intLinkedBag2);
-        BagInterface<Integer> intersection2 = intLinkedBag.Intersection(intLinkedBag2);
-*/
+        BagInterface<Integer> testLinkedTogether = testLinkedBag1.Union(testLinkedBag2);
+        BagInterface<Integer> testLinkedCommon = testLinkedBag1.Intersection(testLinkedBag2);
+        BagInterface<Integer> testLinkedDiff = testLinkedBag1.Difference(testLinkedBag2);
 
+        System.out.println("After the union method for LinkedBag ");
+        displayBag(testLinkedTogether);
+        System.out.println("After the intersection method for LinkedBag ");
+        displayBag(testLinkedCommon);
+        System.out.println("After the difference method for LinkedBag ");
+        displayBag(testLinkedDiff);
     }
 
+    /**
+     * @param aBag
+     * @return  a list of items in the bag.
+     */
+    private static void displayBag(BagInterface<Integer> aBag) {
+        System.out.println("The bag contains...");
+        Object[] bagArray = aBag.toArray();
+        for (int i = 0; i < bagArray.length; i++) {
+            System.out.print(bagArray[i] + " ");
+        } //end for
+        System.out.println();
+    } // end displayBag method
 }

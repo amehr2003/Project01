@@ -96,8 +96,8 @@ public class ResizeableArrayBag<T> implements BagInterface<T> {
 
         boolean status[] = new boolean[other.length];
 
-        for ( int i = 0; i < array.length; i++) {
-            for ( int j = 0; j < other.length; j++) {
+        for ( int i = 0; i < array.length-1; i++) {
+            for ( int j = 0; j < other.length-1; j++) {
                 if (other[i].equals(array[i]) && (!status[j])) {
                     I.add(array[i]);
                     status[j] = true;
