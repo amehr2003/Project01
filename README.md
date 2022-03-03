@@ -13,5 +13,5 @@ Joshua Furman worked on ResizeableArrayBag and the video.
 Extra features include J-Unit testing using Maven.
 
 Link to video:
-https://youtu.be/rtaskevkfTA
+https://www.youtube.com/watch?v=rtaskevkfTA
 
